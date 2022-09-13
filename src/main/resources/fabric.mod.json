@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "nodus-2",
+  "version": "${version}",
+  "name": "Nodus 2",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/nodus-2/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "net.aaron2599.Nodus"
+    ]
+  },
+  "mixins": [
+    "nodus-2.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.9",
+    "fabric": "*",
+    "minecraft": "1.18.2"
+  }
+}
