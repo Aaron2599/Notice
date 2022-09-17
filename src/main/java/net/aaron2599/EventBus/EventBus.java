@@ -25,18 +25,21 @@ public class EventBus {
         }
     }
 
-    public void subscribe(Object object) {
+    public int subscribe(Object object) {
+        int size = subscriberMap.size();
         for(Method method : object.getClass().getDeclaredMethods()){
             if(isValid(method)){
-                subscriberMap.computeIfAbsent(method.getParameters()[0].getType(), event -> new CopyOnWriteArrayList<>()).add(new Subscriber(method));
+                subscriberMap.computeIfAbsent(method.getParameters()[0].getType(), event -> new CopyOnWriteArrayList<>()).add(new Subscriber(object, method));
+
             }
         }
+        return subscriberMap.size() - size;
     }
 
-    public void unsubscribe(Object object) {
-        subscriberMap.values().removeIf(v -> {
-            return v.removeIf(s -> object.getClass().equals(s.getTarget()));
-        });
+    public int unsubscribe(Object object) {
+        int size = subscriberMap.size();
+        subscriberMap.values().removeIf(v -> v.removeIf(s -> object.getClass().equals(s.getTarget())));
+        return size - subscriberMap.size();
     }
 
     private boolean isValid(Method method){

@@ -16,19 +16,21 @@ public class Subscriber {
     private final Class<?> target;
     private final Consumer<Object> consumer;
 
-    public Subscriber(Method method) {
+    public Subscriber(Object object, Method method) {
         try {
+            Class<? extends Event> event = (Class<? extends Event>) method.getParameterTypes()[0];
+
             MethodHandles.Lookup lookup = MethodHandles.lookup();
             CallSite callSite = LambdaMetafactory.metafactory(lookup,
                     "accept",
-                    MethodType.methodType(Consumer.class, method.getClass()),
+                    MethodType.methodType(Consumer.class, method.getDeclaringClass()),
                     MethodType.methodType(void.class, Object.class),
                     lookup.unreflect(method),
-                    MethodType.methodType(void.class, method.getParameters()[0].getClass()));
+                    MethodType.methodType(void.class, event));
 
             this.method = method;
-            target = method.getClass();
-            consumer = (Consumer<Object>) callSite.getTarget().invokeWithArguments(method.getClass());
+            target = object.getClass();
+            consumer = (Consumer<Object>) callSite.getTarget().invokeWithArguments(object);
         } catch (Throwable t) {
             throw new RuntimeException(t);
         }
