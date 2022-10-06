@@ -66,8 +66,6 @@ public class ConfigManager implements Globals {
                                 module.setVisible(Boolean.parseBoolean(columns[3]));
                                 module.setHold(Boolean.parseBoolean(columns[4]));
                             }
-                            case "Bind" -> ((BindSetting) setting).setBind(Integer.parseInt(value));
-                            case "Boolean" -> ((BooleanSetting) setting).setValue(Boolean.parseBoolean(value));
                             case "Color" -> {
                                 int r = Integer.parseInt(columns[2]);
                                 int g = Integer.parseInt(columns[3]);
@@ -76,7 +74,9 @@ public class ConfigManager implements Globals {
                                 ((ColorSetting) setting).setRainbow(Boolean.parseBoolean(columns[5]));
                             }
                             case "Enum" -> ((EnumSetting) setting).setValue(value);
+                            case "Bind" -> ((BindSetting) setting).setBind(Integer.parseInt(value));
                             case "Slider" -> ((SliderSetting) setting).setValue(Double.parseDouble(value));
+                            case "Boolean" -> ((BooleanSetting) setting).setValue(Boolean.parseBoolean(value));
                         }
 
                     } catch (Exception e) {
