@@ -1,6 +1,6 @@
 import net.aaron2599.Event.Events.EventTick;
-import net.aaron2599.EventBus.NodusEvent;
-import net.aaron2599.Nodus;
+import net.aaron2599.EventBus.NoticeEvent;
+import net.aaron2599.Notice;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -15,17 +15,17 @@ public class EventsBusTest {
     @Test
     @Order(1)
     public void subscribe(){
-        assertEquals(1, Nodus.EventBus.subscribe(this));
-        assertEquals(0, Nodus.EventBus.subscribe(this));
-        Nodus.EventBus.unsubscribe(this);
+        assertEquals(1, Notice.EventBus.subscribe(this));
+        assertEquals(0, Notice.EventBus.subscribe(this));
+        Notice.EventBus.unsubscribe(this);
     }
 
     @Test
     @Order(2)
     public void unsubscribe(){
-        Nodus.EventBus.subscribe(this);
-        assertEquals(1, Nodus.EventBus.unsubscribe(this));
-        assertEquals(0, Nodus.EventBus.unsubscribe(this));
+        Notice.EventBus.subscribe(this);
+        assertEquals(1, Notice.EventBus.unsubscribe(this));
+        assertEquals(0, Notice.EventBus.unsubscribe(this));
     }
 
     @Test
@@ -33,13 +33,13 @@ public class EventsBusTest {
     @Tag("slow")
     public void post() {
         EventTick event = new EventTick();
-        Nodus.EventBus.subscribe(this);
-        Nodus.EventBus.post(event);
+        Notice.EventBus.subscribe(this);
+        Notice.EventBus.post(event);
         assertTrue(posted);
-        Nodus.EventBus.unsubscribe(this);
+        Notice.EventBus.unsubscribe(this);
     }
 
-    @NodusEvent
+    @NoticeEvent
     public void onTick(EventTick event) {
         posted = true;
     }

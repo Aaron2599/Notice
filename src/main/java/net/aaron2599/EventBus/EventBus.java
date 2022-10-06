@@ -30,7 +30,6 @@ public class EventBus {
         for(Method method : object.getClass().getDeclaredMethods()){
             if(isValid(method)){
                 subscriberMap.computeIfAbsent(method.getParameters()[0].getType(), event -> new CopyOnWriteArrayList<>()).add(new Subscriber(object, method));
-
             }
         }
         return subscriberMap.size() - size;
@@ -43,7 +42,7 @@ public class EventBus {
     }
 
     private boolean isValid(Method method){
-        return method.isAnnotationPresent(NodusEvent.class) && method.getParameterCount() == 1 && method.getReturnType() == void.class;
+        return method.isAnnotationPresent(NoticeEvent.class) && method.getParameterCount() == 1 && method.getReturnType() == void.class;
     }
 
 

@@ -1,21 +1,21 @@
 {
   "schemaVersion": 1,
-  "id": "nodus-2",
+  "id": "notice",
   "version": "${version}",
-  "name": "Nodus 2",
+  "name": "Notice",
   "description": "",
   "authors": [],
   "contact": {},
   "license": "All-Rights-Reserved",
-  "icon": "assets/nodus-2/icon.png",
+  "icon": "assets/notice/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
-      "net.aaron2599.Nodus"
+      "net.aaron2599.Notice"
     ]
   },
   "mixins": [
-    "nodus-2.mixins.json"
+    "notice.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.14.9",
