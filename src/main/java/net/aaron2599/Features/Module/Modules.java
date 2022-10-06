@@ -2,7 +2,6 @@ package net.aaron2599.Features.Module;
 
 import net.aaron2599.Features.Module.Misc.AutoEz;
 import net.aaron2599.Features.Module.Render.Zoom;
-import net.aaron2599.Features.Setting.Setting;
 
 import java.util.ArrayList;
 

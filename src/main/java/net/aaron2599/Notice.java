@@ -1,6 +1,5 @@
 package net.aaron2599;
 
-import net.aaron2599.Event.Event;
 import net.aaron2599.EventBus.EventBus;
 import net.aaron2599.Features.Command.Commands;
 import net.aaron2599.Features.Module.Modules;
@@ -9,13 +8,8 @@ import net.aaron2599.Utils.FileUtils;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 
-import java.io.BufferedReader;
-import java.io.Reader;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Environment(EnvType.CLIENT)
 public class Notice implements ClientModInitializer {

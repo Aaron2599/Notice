@@ -1,8 +1,6 @@
 package net.aaron2599.Managers;
 
-import com.sun.security.auth.login.ConfigFile;
 import net.aaron2599.Features.Module.Module;
-import net.aaron2599.Features.Module.Modules;
 import net.aaron2599.Features.Setting.Setting;
 import net.aaron2599.Features.Setting.types.*;
 import net.aaron2599.Notice;
@@ -10,14 +8,16 @@ import net.aaron2599.Utils.FileUtils;
 import net.aaron2599.Utils.Globals;
 
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class ConfigManager implements Globals {
 
-    private String configsFolder = Notice.Folder + "configs/";
-    private String configFile = Notice.Folder + "config.txt";
+    private final String configsFolder = Notice.Folder + "configs/";
+    private final String configFile = Notice.Folder + "config.txt";
     private String activeConfig = configsFolder + "Default/";
     private String configName = "Default";
 
@@ -60,25 +60,23 @@ public class ConfigManager implements Globals {
                         System.out.println(type);
 
                         Setting<?> setting = module.getSettingByName(name);
-                        if(type.equals("Module")){
-                            module.setActive(Boolean.parseBoolean(columns[2]));
-                            module.setVisible(Boolean.parseBoolean(columns[3]));
-                            module.setHold(Boolean.parseBoolean(columns[4]));
-                        } else if(type.equals("Bind")) {
-                            ((BindSetting) setting).setBind(Integer.parseInt(value));
-                        } else if(type.equals("Boolean")) {
-                            ((BooleanSetting) setting).setValue(Boolean.parseBoolean(value));
-                        } else if(type.equals("Color")) {
-                            int r = Integer.parseInt(columns[2]);
-                            int g = Integer.parseInt(columns[3]);
-                            int b = Integer.parseInt(columns[4]);
-                            ((ColorSetting) setting).setValue(new Color(r,g,b));
-                            ((ColorSetting) setting).setRainbow(Boolean.parseBoolean(columns[5]));
-
-                        } else if(type.equals("Enum")) {
-                            ((EnumSetting) setting).setValue(value);
-                        } else if(type.equals("Slider")) {
-                            ((SliderSetting) setting).setValue(Double.parseDouble(value));
+                        switch (type) {
+                            case "Module" -> {
+                                module.setActive(Boolean.parseBoolean(columns[2]));
+                                module.setVisible(Boolean.parseBoolean(columns[3]));
+                                module.setHold(Boolean.parseBoolean(columns[4]));
+                            }
+                            case "Bind" -> ((BindSetting) setting).setBind(Integer.parseInt(value));
+                            case "Boolean" -> ((BooleanSetting) setting).setValue(Boolean.parseBoolean(value));
+                            case "Color" -> {
+                                int r = Integer.parseInt(columns[2]);
+                                int g = Integer.parseInt(columns[3]);
+                                int b = Integer.parseInt(columns[4]);
+                                ((ColorSetting) setting).setValue(new Color(r, g, b));
+                                ((ColorSetting) setting).setRainbow(Boolean.parseBoolean(columns[5]));
+                            }
+                            case "Enum" -> ((EnumSetting) setting).setValue(value);
+                            case "Slider" -> ((SliderSetting) setting).setValue(Double.parseDouble(value));
                         }
 
                     } catch (Exception e) {

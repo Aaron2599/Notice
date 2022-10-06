@@ -1,7 +1,5 @@
 package net.aaron2599.Utils;
 
-import org.lwjgl.system.CallbackI;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
